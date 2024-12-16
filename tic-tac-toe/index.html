@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body { font-family: Arial, sans-serif; }
         #board { display: grid; grid-template-columns: repeat(3, 100px); gap: 5px; }
@@ -12,9 +13,13 @@
     </style>
 </head>
 <body>
-    <h1>Tic-Tac-Toe</h1>
-    <div id="board"></div>
-    <button id="reset">Reset</button>
+    <div class="container text-center">
+        <h1 class="my-4">Tic-Tac-Toe</h1>
+        <div class="row justify-content-center mb-4">
+            <div id="board" class="col-4 d-flex flex-wrap"></div>
+        </div>
+        <button id="reset" class="btn btn-primary">Reset</button>
+    </div>
 
 <script>
 const board = document.getElementById('board');
@@ -25,7 +30,7 @@ let currentPlayer = 'X';
 function createBoard() {
     cells.forEach((_, index) => {
         const cell = document.createElement('div');
-        cell.classList.add('cell');
+        cell.classList.add('cell', 'border', 'rounded', 'd-flex', 'align-items-center', 'justify-content-center', 'h4');
         cell.addEventListener('click', () => handleClick(index));
         board.appendChild(cell);
     });
