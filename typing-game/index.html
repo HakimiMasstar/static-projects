@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#word-container {
+    font-size: 20px;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #888;
+}
+
+.stats {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#timer {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.correct {
+    color: #4caf50;
+}
+
+.incorrect {
+    color: #f44336;
+    background-color: #ffebee;
+}
+
+
+    </style>
+
+    <div class="container">
+        <h1>Typing Game</h1>
+        <div id="timer">60</div>
+        <div id="word-container"></div>
+        <textarea id="input-area" placeholder="Start typing here..." autofocus></textarea>
+        <div class="stats">
+            <p id="wpm">WPM: 0</p>
+            <p id="accuracy">Accuracy: 100%</p>
+            <p id="errors">Errors: 0</p>
+        </div>
+        <button id="restart-button">Restart</button>
+    </div>
+    <script type="module">
+        import words from './words.js';
+
+        const wordContainer = document.getElementById("word-container");
+        const inputArea = document.getElementById("input-area");
+        const wpmDisplay = document.getElementById("wpm");
+        const accuracyDisplay = document.getElementById("accuracy");
+        const errorsDisplay = document.getElementById("errors");
+        const restartButton = document.getElementById("restart-button");
+        const timerDisplay = document.getElementById("timer");
+
+        let currentText = "";
+        let startTime = null;
+        let errors = 0;
+        let totalCharacters = 0;
+        let timerInterval;
+        let timeRemaining = 60;
+
+        function generateWords() {
+            return Array.from({ length: 10 }, () => words[Math.floor(Math.random() * words.length)]).join(" ");
+        }
+
+        function startGame() {
+            currentText = generateWords();
+            wordContainer.textContent = currentText;
+            inputArea.value = "";
+            inputArea.disabled = false;
+            startTime = null;
+            errors = 0;
+            totalCharacters = 0;
+            timeRemaining = 60;
+            timerDisplay.textContent = timeRemaining;
+            updateStats();
+            inputArea.focus();
+            
+            // Clear existing timer
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function updateStats() {
+            if (!startTime) return;
+            
+            const elapsedTime = (Date.now() - startTime) / 1000 / 60; // Minutes
+            const typedWords = inputArea.value.trim().split(/\s+/).length;
+            const wpm = Math.round(typedWords / elapsedTime);
+            const accuracy = totalCharacters > 0 
+                ? Math.round(((totalCharacters - errors) / totalCharacters) * 100) 
+                : 100;
+
+            wpmDisplay.textContent = `WPM: ${wpm}`;
+            accuracyDisplay.textContent = `Accuracy: ${accuracy}%`;
+            errorsDisplay.textContent = `Errors: ${errors}`;
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                timerDisplay.textContent = timeRemaining;
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    inputArea.disabled = true;
+                    // You could add a "Time's up!" message here
+                }
+            }, 1000);
+        }
+
+        inputArea.addEventListener("input", () => {
+            if (!startTime) {
+                startTime = Date.now();
+                startTimer();
+            }
+
+            const typedText = inputArea.value;
+            totalCharacters = Math.max(totalCharacters, typedText.length);
+
+            let correctSoFar = true;
+            errors = 0;
+
+            for (let i = 0; i < typedText.length; i++) {
+                if (typedText[i] !== currentText[i]) {
+                    correctSoFar = false;
+                    errors++;
+                }
+            }
+
+            wordContainer.innerHTML = currentText.split("").map((char, i) => {
+                if (i < typedText.length) {
+                    return `<span class="${char === typedText[i] ? 'correct' : 'incorrect'}">${char}</span>`;
+                } else {
+                    return char;
+                }
+            }).join("");
+
+            updateStats();
+
+            // Check if user has completed all words
+            if (typedText.length >= currentText.length) {
+                clearInterval(timerInterval);
+                inputArea.disabled = true;
+                
+                // Calculate final stats
+                const elapsedTime = (Date.now() - startTime) / 1000; // Seconds
+                const minutes = elapsedTime / 60;
+                const typedWords = currentText.split(' ').length;
+                const finalWPM = Math.round(typedWords / minutes);
+                const finalAccuracy = Math.round(((totalCharacters - errors) / totalCharacters) * 100);
+                
+                // Show results
+                wordContainer.innerHTML = `
+                    <h2>Results:</h2>
+                    <p>Time: ${Math.round(elapsedTime)} seconds</p>
+                    <p>WPM: ${finalWPM}</p>
+                    <p>Accuracy: ${finalAccuracy}%</p>
+                    <p>Errors: ${errors}</p>
+                `;
+            }
+        });
+
+        restartButton.addEventListener("click", startGame);
+        document.addEventListener("DOMContentLoaded", startGame);
+
+
+    </script>
+</body>
+</html>
