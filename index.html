@@ -1,3 +1,453 @@
-hi there
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-this is our projects site
+    <meta name="description" content="Your portfolio description here">
+    <meta name="keywords" content="web developer, portfolio, projects">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="Your Portfolio">
+    <meta property="og:description" content="Your portfolio description here">
+    <meta property="og:image" content="URL to your image">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Masstar's</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        html {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 400px;
+        }
+
+        /* Add these new styles for pagination */
+        .swiper-pagination-bullet {
+            /* Default bullet style */
+            background-color: #778DA9 !important;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            /* Active bullet style */
+            background-color: #1B263B !important;
+            opacity: 1;
+        }
+
+        .halftone-bg {
+            /* Create the base background */
+            background-color: #E0E1DD;
+            /* Create a radial gradient pattern that repeats */
+            background-image: 
+                /* Add linear gradient that fades to the base color */
+                linear-gradient(to bottom, 
+                    rgba(224, 225, 221, 0)0%,
+                    rgba(224, 225, 221, 0.7) 90%,
+                    rgba(224, 225, 221, 1) 100%
+                ),
+                /* Original halftone pattern */
+                radial-gradient(#1B263B 1.5px, transparent 1.5px);
+            /* Reduce the size to create more dots (changed from 30px to 20px) */
+            background-size: 
+                /* Gradient size (covers full width/height) */
+                100% 100%,
+                /* Halftone pattern size */
+                15px 15px;
+            /* Add a subtle animation */
+            animation: moveHalftone 60s linear infinite;
+            /* Make it slightly transparent */
+            opacity: 0.3;
+            /* Position it absolutely to cover the whole section */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        @keyframes moveHalftone {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#E0E1DD]">
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-4 right-4 bg-[#778DA9] text-[#1B263B] p-4 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-[#1B263B] hover:text-[#E0E1DD] invisible z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-[#E0E1DD] shadow-lg fixed w-full z-50">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center py-4">
+            <div class="text-xl font-bold text-[#415A77]">
+                MASSTAR'S
+            </div>
+            <!-- Burger Menu Button -->
+            <button id="burgerMenu" class="text-[#415A77] md:hidden focus:outline-none z-50">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex md:flex-row md:space-x-6">
+                <a href="#home" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Home</a>
+                <a href="#projects" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Projects</a>
+                <a href="#contact" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Contact</a>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileNav" class="fixed top-0 right-0 h-full w-64 bg-[#E0E1DD] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+            <div class="flex flex-col pt-20 px-6 space-y-6">
+                <a href="#home" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Home</a>
+                <a href="#projects" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Projects</a>
+                <a href="#contact" class="text-[#415A77] hover:text-[#0D1B2A] transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center bg-[#E0E1DD] pt-24 md:pt-16 relative">
+        <div class="halftone-bg"></div>
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-2xl md:text-4xl font-bold mb-4 text-[#415A77]">WELCOME TO MASSTAR'S</h1>
+            <p class="text-lg md:text-xl mb-8 text-[#415A77]">Explore simple games here !</p>
+            <button class="bg-[#415A77] text-[#E0E1DD] hover:bg-[#1B263B] px-6 py-2 rounded-full transition-colors">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="flex items-center bg-[#E0E1DD] pt-24 md:pt-16">
+        <div class="w-full px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-[#415A77]">Projects</h2>
+            
+            <!-- Swiper container -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Project 1 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 1" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 1</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 1 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 2" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 2</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 2 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 3" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 3</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 3 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 4" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 4</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 4 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 5" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 5</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 5 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="swiper-slide">
+                        <div class="bg-[#415A77] rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="https://via.placeholder.com/300x200" alt="Project 6" class="w-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div>
+                                    <h3 class="font-bold text-xl mb-2 text-[#E0E1DD]">Project 6</h3>
+                                    <p class="text-[#E0E1DD]">Description of project 6 goes here.</p>
+                                </div>
+                                <!-- Button container pushed to bottom -->
+                                <div class="flex justify-center w-full mt-auto pt-4">
+                                    <button class="w-full bg-[#E0E1DD] text-[#415A77] px-4 py-2 rounded hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                                        View Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                
+                <!-- Pagination dengan Tailwind classes -->
+                <div class="swiper-pagination [&>.swiper-pagination-bullet]:bg-[#778DA9] [&>.swiper-pagination-bullet]:opacity-80 [&>.swiper-pagination-bullet-active]:bg-[#1B263B] [&>.swiper-pagination-bullet-active]:opacity-100"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="flex items-center bg-[#E0E1DD] pt-24 pb-16 md:pt-16">
+        <div class="w-full md:w-1/2 mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-[#E0E1DD]">Contact Me</h2>
+            <div class="bg-[#415A77] p-4 md:p-8 rounded-lg mb-8">
+                <form class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="w-full md:w-1/2">
+                            <label class="block text-[#E0E1DD] mb-2" for="name">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 bg-[#778DA9] rounded-lg text-[#E0E1DD]">
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <label class="block text-[#E0E1DD] mb-2" for="email">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 bg-[#778DA9] rounded-lg text-[#E0E1DD]">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[#E0E1DD] mb-2" for="message">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-2 bg-[#778DA9] rounded-lg text-[#E0E1DD]"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-[#E0E1DD] text-[#415A77] py-2 px-4 rounded-lg hover:bg-[#1B263B] hover:text-[#FFFFFF] transition-colors">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#E0E1DD] text-[#415A77] py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-[#415A77] transition-colors">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-[#415A77] transition-colors">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-[#415A77] transition-colors">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-[#415A77] transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-[#415A77] transition-colors">
+                        <!-- Thread icon using Font Awesome -->
+                        <i class="fab fa-threads text-2xl"></i>
+                    </a>
+                </div>
+                <p class="text-center md:text-left">&copy; 2024 Built by Fikri, assisted by Mr, AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // Smooth Scrolling Script
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper(".mySwiper", {
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                spaceBetween: 50,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                },
+                speed: 1500,
+                loop: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    // when window width is >= 320px
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    // when window width is >= 640px
+                    640: {
+                        slidesPerView: "auto",
+                        spaceBetween: 30
+                    },
+                    // when window width is >= 1024px
+                    1024: {
+                        slidesPerView: "auto",
+                        spaceBetween: 50
+                    }
+                }
+            });
+        });
+
+        // Dapatkan button element
+        const backToTopButton = document.getElementById('backToTop');
+
+        // Fungsi untuk scroll ke atas dengan smooth
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Fungsi untuk show/hide button berdasarkan scroll position
+        window.addEventListener('scroll', function() {
+            // Show button bila scroll lebih dari 300px
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('invisible', 'opacity-0');
+                backToTopButton.classList.add('opacity-100');
+            } else {
+                // Hide button bila scroll kurang dari 300px
+                backToTopButton.classList.remove('opacity-100');
+                backToTopButton.classList.add('opacity-0');
+                // Tunggu transition selesai sebelum tambah invisible
+                setTimeout(() => {
+                    if (window.scrollY <= 300) {
+                        backToTopButton.classList.add('invisible');
+                    }
+                }, 300);
+            }
+        });
+
+        // Buat Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Jika element dalam viewport
+                if (entry.isIntersecting) {
+                    // Dapatkan semua progress bars dalam skill bar tersebut
+                    entry.target.querySelectorAll('.progress-bar').forEach(bar => {
+                        // Reset animation
+                        bar.style.animation = 'none';
+                        bar.offsetHeight; // Trigger reflow
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        let isOpen = false;
+
+        burgerMenu.addEventListener('click', () => {
+            isOpen = !isOpen;
+            
+            // Toggle menu
+            if (isOpen) {
+                mobileNav.classList.remove('translate-x-full');
+                burgerMenu.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+            } else {
+                mobileNav.classList.add('translate-x-full');
+                burgerMenu.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+            }
+        });
+
+
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobileNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('translate-x-full');
+                burgerMenu.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                isOpen = false;
+            });
+        });
+    </script>
+</body>
+</html>
